@@ -19,55 +19,62 @@ router.get("/", (req, res) => {
 
   let filterProduct = products;
 
+  // Categories
   if (categories) {
     filterProduct = filterProduct.filter(
       (item) => item.category.toLowerCase() === categories.toLowerCase(),
     );
   }
 
+  // Multiple brands
   if (brand) {
-    filterProduct = filterProduct.filter(
-      (item) => item.brand.toLowerCase() === brand.toLowerCase(),
+    const brands = brand.split(",").map((item) => item.trim().toLowerCase());
+
+    filterProduct = filterProduct.filter((item) =>
+      brands.includes(item.brand.toLowerCase()),
     );
   }
 
+  // Title
   if (title) {
     filterProduct = filterProduct.filter((item) =>
-      item.title.toLowerCase().includes(title.toLocaleLowerCase()),
+      item.title.toLowerCase().includes(title.toLowerCase()),
     );
   }
 
+  // Minimum price
   if (minPrice) {
     filterProduct = filterProduct.filter(
       (item) => item.price >= Number(minPrice),
     );
   }
 
+  // Maximum price
   if (maxPrice) {
     filterProduct = filterProduct.filter(
       (item) => item.price <= Number(maxPrice),
     );
   }
 
+  // Multiple sizes
   if (size) {
-    console.log("size:", size);
-    console.log(
-      "PRODUCT SIZE:",
-      products.map((item) => item.size),
-    );
+    const sizes = size.split(",").map((item) => item.trim());
+
     filterProduct = filterProduct.filter((item) =>
-      item.size.some((itemSize) => itemSize === size),
+      item.size.some((itemSize) => sizes.includes(itemSize)),
     );
   }
 
+  // Multiple colors
   if (color) {
+    const colors = color.split(",").map((item) => item.trim().toLowerCase());
+
     filterProduct = filterProduct.filter((item) =>
-      item.color.some(
-        (itemColor) => itemColor.toLowerCase() === color.toLowerCase(),
-      ),
+      item.color.some((itemColor) => colors.includes(itemColor.toLowerCase())),
     );
   }
 
+  // Sorting
   if (sort === "price-asc") {
     filterProduct.sort((a, b) => a.price - b.price);
   }
@@ -84,16 +91,19 @@ router.get("/", (req, res) => {
     filterProduct.sort((a, b) => b.discountPercentage - a.discountPercentage);
   }
 
+  // Pagination
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
 
   const startIndex = (pageNumber - 1) * limitNumber;
+
   const endIndex = startIndex + limitNumber;
 
   const pagnitedProduct = filterProduct.slice(startIndex, endIndex);
 
   res.json({
     products: pagnitedProduct,
+
     pagination: {
       page: pageNumber,
       limit: limitNumber,

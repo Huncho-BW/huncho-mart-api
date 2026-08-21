@@ -147,13 +147,16 @@ router.get("/search", (req, res) => {
   const search = req.query.q?.toLowerCase().trim();
 
   if (!search) {
-    res.json({
+    return res.status(400).json({
       message: "search query is required",
     });
   }
 
-  const result = products.filter((item) =>
-    item.title.toLowerCase().includes(search),
+  const result = products.filter(
+    (item) =>
+      item.title.toLowerCase().includes(search) ||
+      item.brand.toLowerCase().includes(search) ||
+      item.category.toLowerCase().includes(search),
   );
 
   if (result.length === 0) {
@@ -161,9 +164,9 @@ router.get("/search", (req, res) => {
       message: "No products found",
     });
   }
+
   return res.json(result);
 });
-
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
   const product = products.find((item) => item.id === id);

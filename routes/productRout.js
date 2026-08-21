@@ -15,6 +15,7 @@ router.get("/", (req, res) => {
     sort,
     page = 1,
     limit = 12,
+    rating,
   } = req.query;
 
   let filterProduct = products;
@@ -71,6 +72,13 @@ router.get("/", (req, res) => {
 
     filterProduct = filterProduct.filter((item) =>
       item.color.some((itemColor) => colors.includes(itemColor.toLowerCase())),
+    );
+  }
+
+  if (rating) {
+    const ratings = rating.split(",");
+    filterProduct = filterProduct.filter((item) =>
+      ratings.some((rate) => item.rating.rate >= rate),
     );
   }
 

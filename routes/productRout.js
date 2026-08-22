@@ -98,6 +98,11 @@ router.get("/", (req, res) => {
   if (sort === "discount") {
     filterProduct.sort((a, b) => b.discountPercentage - a.discountPercentage);
   }
+  // TODO: When we have a real backend/database,
+  // replace isNewArrival with createdAt and sort by actual product date.
+  if (sort === "newest") {
+    filterProduct = filterProduct.filter((item) => item.isNewArrival === true);
+  }
 
   // Pagination
   const pageNumber = Number(page);

@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   const {
+    ids,
     categories,
     brand,
     title,
@@ -19,6 +20,15 @@ router.get("/", (req, res) => {
   } = req.query;
 
   let filterProduct = products;
+
+  // Product IDs
+  if (ids) {
+    const productIds = ids.split(",").map((id) => Number(id));
+
+    filterProduct = filterProduct.filter((item) =>
+      productIds.includes(item.id),
+    );
+  }
 
   // Categories
   if (categories) {
@@ -182,12 +192,15 @@ router.get("/search", (req, res) => {
 });
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
+
   const product = products.find((item) => item.id === id);
+
   if (!product) {
-    res.json({
+    return res.status(404).json({
       message: "Product not found",
     });
   }
+
   res.json(product);
 });
 

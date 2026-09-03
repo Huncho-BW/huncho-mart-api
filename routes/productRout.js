@@ -135,17 +135,42 @@ router.get("/", (req, res) => {
     },
   });
 });
+// Flash Deal settings
+const FLASH_DEAL_LIMIT = 10;
+const FLASH_DEAL_DURATION = 12 * 60 * 60 * 1000;
+
+// Store the current deals so they stay the same for 12 hours
+let currentFlashDeal = [];
+let flashDealEndAt = null;
 
 router.get("/flash-deals", (req, res) => {
-  const flashLimit = 10;
+  // Create a new set of Flash Deals
+  const createFlashDeal = () => {
+    const flashDeals = products.filter((product) => product.flashDeal === true);
+
+    // Shuffle and pick 10 products
+    const shuffle = [...flashDeals]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, FLASH_DEAL_LIMIT);
+
+    currentFlashDeal = shuffle;
+
+    // Start a new 12-hour period
+    flashDealEndAt = Date.now() + FLASH_DEAL_DURATION;
+  };
+
   try {
-    const flashDeals = products
-      .filter((product) => product.flashDeal === true)
-      .slice(0, flashLimit);
+    const now = Date.now();
+
+    // Create new deals if there is no active deal or the old one expired
+    if (!flashDealEndAt || now >= flashDealEndAt) {
+      createFlashDeal();
+    }
 
     res.status(200).json({
       success: true,
-      data: flashDeals,
+      data: currentFlashDeal,
+      endsAt: flashDealEndAt,
     });
   } catch (error) {
     console.error("Error fetching flash deals:", error);
@@ -153,6 +178,7 @@ router.get("/flash-deals", (req, res) => {
     res.status(500).json({
       success: false,
       data: [],
+      endsAt: null,
       message: "Failed to fetch flash deals",
     });
   }

@@ -136,6 +136,28 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/flash-deals", (req, res) => {
+  const flashLimit = 10;
+  try {
+    const flashDeals = products
+      .filter((product) => product.flashDeal === true)
+      .slice(0, flashLimit);
+
+    res.status(200).json({
+      success: true,
+      data: flashDeals,
+    });
+  } catch (error) {
+    console.error("Error fetching flash deals:", error);
+
+    res.status(500).json({
+      success: false,
+      data: [],
+      message: "Failed to fetch flash deals",
+    });
+  }
+});
+
 router.get("/categories/:categories", (req, res) => {
   const categories = req.params.categories.toLowerCase();
 

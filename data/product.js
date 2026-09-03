@@ -70,7 +70,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.6,
+      rate: 4.5,
       count: 287,
     },
 
@@ -127,7 +127,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.5,
+      rate: 4.4,
       count: 198,
     },
 
@@ -241,7 +241,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.7,
+      rate: 4.6,
       count: 356,
     },
 
@@ -298,7 +298,7 @@ const products = [
     isFlashDeal: true,
 
     rating: {
-      rate: 4.6,
+      rate: 4.3,
       count: 265,
     },
 
@@ -355,7 +355,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.4,
+      rate: 4.2,
       count: 174,
     },
 
@@ -583,7 +583,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.5,
+      rate: 4.3,
       count: 186,
     },
 
@@ -697,7 +697,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.4,
+      rate: 4.1,
       count: 153,
     },
 
@@ -811,7 +811,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.6,
+      rate: 4.5,
       count: 294,
     },
 
@@ -925,7 +925,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.5,
+      rate: 4.4,
       count: 205,
     },
 
@@ -1153,7 +1153,7 @@ const products = [
     isFlashDeal: true,
 
     rating: {
-      rate: 4.5,
+      rate: 4.4,
       count: 214,
     },
 
@@ -1267,7 +1267,7 @@ const products = [
     isFlashDeal: true,
 
     rating: {
-      rate: 4.4,
+      rate: 4.2,
       count: 267,
     },
 
@@ -1324,7 +1324,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.5,
+      rate: 4.3,
       count: 192,
     },
 
@@ -1495,7 +1495,7 @@ const products = [
     isFlashDeal: true,
 
     rating: {
-      rate: 4.3,
+      rate: 4.1,
       count: 173,
     },
 
@@ -1552,7 +1552,7 @@ const products = [
     isFlashDeal: false,
 
     rating: {
-      rate: 4.6,
+      rate: 4.5,
       count: 286,
     },
 
@@ -1609,7 +1609,7 @@ const products = [
     isFlashDeal: true,
 
     rating: {
-      rate: 4.5,
+      rate: 4.4,
       count: 231,
     },
 
